@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             override fun onError(exception: FacebookException) {
                 // App code
             }
-        });
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -85,13 +85,13 @@ class MainActivity : AppCompatActivity() {
         var AlbumsGrid: GridView = findViewById(R.id.albumsGridView)
         var albumsGR: AlbumsGridResources = AlbumsGridResources(albums)
         AlbumsGrid.adapter = albumsGR
-        AlbumsGrid.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+        AlbumsGrid.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 var intent: Intent = Intent(this@MainActivity, AlbumActivity::class.java)
-                intent.putExtra("selected album", albumsGridView.getItemIdAtPosition(position))
+                intent.putExtra("Albums pictures", albums!![albumsGridView.getItemIdAtPosition(position).toInt()].images)
                 startActivity(intent)
             }
-        })
+        }
     }
 
     inner class AlbumsGridResources(var itemsList: List<Album>? = albums) : BaseAdapter() {
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            var inflater: LayoutInflater = getLayoutInflater()
+            var inflater: LayoutInflater = layoutInflater
             var view = layoutInflater.inflate(R.layout.single_album_item, null)
             var titleView = view.findViewById<TextView>(R.id.titleView_singleAlbumItem)
             var dateView = view.findViewById<TextView>(R.id.dateView_singleAlbumItem)

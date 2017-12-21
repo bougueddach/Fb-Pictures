@@ -19,7 +19,7 @@ class AlbumActivity : AppCompatActivity() {
 
         var picturesGrid: GridView = findViewById<GridView>(R.id.picturesGridView)
 
-        if (bundle!=null){
+        if (bundle.get("a")!=null){
 
         }
         //var pircturesGR:PicturesGridResources=PicturesGridResources()
